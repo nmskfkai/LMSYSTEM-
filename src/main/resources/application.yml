@@ -1,1 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/minicampus
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: 1234
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ij5024387@gmail.com
+    password: akry upsn oadq xqby
+    properties:
+      mail:
+        smtp:
+            starttls:
+              enable: true
 
