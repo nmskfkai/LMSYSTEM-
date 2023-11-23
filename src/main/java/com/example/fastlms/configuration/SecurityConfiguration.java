@@ -32,7 +32,12 @@ public class SecurityConfiguration {
 //                .csrf(AbstractHttpConfigurer::disable);
 
         http.authorizeHttpRequests(request -> request
-                .requestMatchers("/", "/member/register", "/member/email_auth").permitAll()
+                .requestMatchers("/",
+                        "/member/register",
+                        "/member/email_auth",
+                        "/member/find-password",
+                        "/member/reset/password"
+                        ).permitAll()
                 .anyRequest().authenticated()); // 나머지 API에 대해서는 인증을 요구
 
         http

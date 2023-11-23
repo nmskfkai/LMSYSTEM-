@@ -1,6 +1,7 @@
 package com.example.fastlms.member.controller;
 
 import com.example.fastlms.member.model.MemberInput;
+import com.example.fastlms.member.model.ResetPasswordInput;
 import com.example.fastlms.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,18 @@ public class MemberController {
     @RequestMapping("/member/login")
     public String login(){
         return "member/login";
+    }
+    @GetMapping("/member/find-password")
+    public String findPassword(){
+        return "member/find_password";
+    }
+    @PostMapping("/member/find-password")
+    public String findPasswordSubmit(Model model, ResetPasswordInput parameter) {
+
+        boolean result = memberService.sendResetPassword(parameter);
+        model.addAttribute("result", result);
+
+        return "member/find_password_result";
     }
     @GetMapping("/member/register")
     public String register(){
@@ -52,6 +65,32 @@ public class MemberController {
     public String memberInfo(){
 
         return "member/info";
+    }
+
+    @GetMapping("/member/reset/password")
+    public String resetPassword(Model model, HttpServletRequest request){
+
+        String uuid = request.getParameter("id");
+        model.addAttribute("uuid", uuid);
+
+        boolean result = memberService.checkResetPassword(uuid);
+        model.addAttribute("result", result);
+
+        return "member/reset_password";
+    }
+    @PostMapping("/member/reset/password")
+    public String resetPasswordSubmit(Model model, ResetPasswordInput parameter){
+
+        boolean result = false;
+        try {
+            result = memberService.resetPassword(parameter.getId(), parameter.getPassword());
+
+        } catch (Exception ignored){
+        }
+
+        model.addAttribute("result", result);
+
+        return "member/reset_password_result";
     }
 
 }
