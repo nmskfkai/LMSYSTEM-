@@ -21,4 +21,9 @@ public class MainController {
 //        mailComponents.sendMailTest();
         return "index";
     }
+
+    @RequestMapping("/error/denied")
+    public String errorDenied(){
+        return "error/denied";
+    }
 }
