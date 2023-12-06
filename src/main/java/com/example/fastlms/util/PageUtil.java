@@ -67,10 +67,6 @@ public class PageUtil {
         this.pageIndex = pageIndex;
     }
 
-    public PageUtil(long totalCount, long pageIndex, String queryString) {
-    }
-
-
     public String pager() {
 
         init();
@@ -86,7 +82,7 @@ public class PageUtil {
         long nextPageIndex = endPage < totalBlockCount ? endPage + 1 : totalBlockCount;
 
         String addQueryString = "";
-        if (queryString != null && queryString.length() > 0) {
+        if (queryString != null && !queryString.isEmpty()) {
             addQueryString = "&" + queryString;
         }
 

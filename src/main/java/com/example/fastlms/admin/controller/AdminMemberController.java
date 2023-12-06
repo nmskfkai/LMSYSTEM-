@@ -3,6 +3,7 @@ package com.example.fastlms.admin.controller;
 import com.example.fastlms.admin.dto.MemberDto;
 import com.example.fastlms.admin.model.MemberParam;
 import com.example.fastlms.admin.model.MemberInput;
+import com.example.fastlms.course.controller.BaseController;
 import com.example.fastlms.member.service.MemberService;
 import com.example.fastlms.util.PageUtil;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
-public class AdminMemberController {
+public class AdminMemberController extends BaseController {
 
     private final MemberService memberService;
     @GetMapping("/admin/member/list.do")

@@ -4,6 +4,7 @@ import com.example.fastlms.admin.dto.MemberDto;
 import com.example.fastlms.admin.mapper.MemberMapper;
 import com.example.fastlms.admin.model.MemberParam;
 import com.example.fastlms.components.MailComponents;
+import com.example.fastlms.course.model.ServiceResult;
 import com.example.fastlms.member.entity.Member;
 import com.example.fastlms.member.entity.MemberCode;
 import com.example.fastlms.member.exception.MemberNotEmailAuthException;
@@ -12,6 +13,7 @@ import com.example.fastlms.member.model.MemberInput;
 import com.example.fastlms.member.model.ResetPasswordInput;
 import com.example.fastlms.member.repository.MemberRepository;
 import com.example.fastlms.member.service.MemberService;
+import com.example.fastlms.util.PasswordUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,6 +30,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+
 @RequiredArgsConstructor
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -37,40 +40,37 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberMapper memberMapper;
 
-    // 회원가입
+    /**
+     * 회원 가입
+     */
     @Override
     public boolean register(MemberInput parameter) {
 
-
         Optional<Member> optionalMember = memberRepository.findById(parameter.getUserId());
-        if (optionalMember.isPresent()){
+        if (optionalMember.isPresent()) {
+            //현재 userId에 해당하는 데이터 존재
             return false;
         }
 
         String encPassword = BCrypt.hashpw(parameter.getPassword(), BCrypt.gensalt());
-
         String uuid = UUID.randomUUID().toString();
 
         Member member = Member.builder()
                 .userId(parameter.getUserId())
                 .userName(parameter.getUserName())
-                .password(encPassword)
                 .phone(parameter.getPhone())
+                .password(encPassword)
                 .regDt(LocalDateTime.now())
                 .emailAuthYn(false)
-                .emailAuthDt(LocalDateTime.now())
                 .emailAuthKey(uuid)
-                .userStatus(Member.MEMBER_STATUS_ING)
+                .userStatus(Member.MEMBER_STATUS_REQ)
                 .build();
-
-
         memberRepository.save(member);
-
 
         String email = parameter.getUserId();
         String subject = "fastlms 사이트 가입을 축하드립니다. ";
-        String text = "<p>fastlms 사이트 가입을 축하드립니다. </p><p> 아래 링크를 클릭하셔서 가입을 완료 하세요. </p>"
-                + "<div><a target='_blank' href='http://localhost:8080/member/email-auth?id=" + uuid + "'>가입 완료 </a></div>";
+        String text = "<p>fastlms 사이트 가입을 축하드립니다.<p><p>아래 링크를 클릭하셔서 가입을 완료 하세요.</p>"
+                + "<div><a target='_blank' href='http://localhost:8080/member/email-auth?id=" + uuid + "'> 가입 완료 </a></div>";
         mailComponents.sendMail(email, subject, text);
 
         return true;
@@ -78,27 +78,29 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public boolean emailAuth(String uuid) {
+
         Optional<Member> optionalMember = memberRepository.findByEmailAuthKey(uuid);
         if (optionalMember.isEmpty()) {
             return false;
         }
+
         Member member = optionalMember.get();
 
-        if(member.isEmailAuthYn()){
+        if (member.isEmailAuthYn()) {
             return false;
         }
 
-        member.setUserStatus(MemberCode.MEMBER_STATUS_ING);
+        member.setUserStatus(Member.MEMBER_STATUS_ING);
         member.setEmailAuthYn(true);
         member.setEmailAuthDt(LocalDateTime.now());
         memberRepository.save(member);
 
         return true;
-
     }
 
     @Override
     public boolean sendResetPassword(ResetPasswordInput parameter) {
+
         Optional<Member> optionalMember = memberRepository.findByUserIdAndUserName(parameter.getUserId(), parameter.getUserName());
         if (optionalMember.isEmpty()) {
             throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
@@ -119,59 +121,15 @@ public class MemberServiceImpl implements MemberService {
                 "<div><a target='_blank' href='http://localhost:8080/member/reset/password?id=" + uuid + "'> 비밀번호 초기화 링크 </a></div>";
         mailComponents.sendMail(email, subject, text);
 
-        return true;
-    }
-
-    @Override
-    public boolean resetPassword(String uuid, String password) {
-
-        Optional<Member> optionalMember = memberRepository.findByResetPasswordKey(uuid);
-        if (optionalMember.isEmpty()){
-            throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다 .");
-        }
-        Member member = optionalMember.get();
-
-        // 초기화 날짜가 유효한지 체크
-        if(member.getResetPasswordLimitDt() == null){
-            throw new RuntimeException("유효한 날짜가 아닙니다.");
-        }
-        if(member.getResetPasswordLimitDt().isBefore(LocalDateTime.now())){
-            throw new RuntimeException("유효한 날짜가 아닙니다.");
-        }
-
-        String encPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        member.setPassword(encPassword);
-        member.setResetPasswordKey("");
-        member.setResetPasswordLimitDt(null);
-        memberRepository.save(member);
-
-        return true;
-    }
-
-    @Override
-    public boolean checkResetPassword(String uuid) {
-        Optional<Member> optionalMember = memberRepository.findByResetPasswordKey(uuid);
-        if (optionalMember.isEmpty()){
-            return false;
-        }
-        Member member = optionalMember.get();
-
-        // 초기화 날짜가 유효한지 체크
-        if(member.getResetPasswordLimitDt() == null){
-            throw new RuntimeException("유효한 날짜가 아닙니다.");
-        }
-        if(member.getResetPasswordLimitDt().isBefore(LocalDateTime.now())){
-            throw new RuntimeException("유효한 날짜가 아닙니다.");
-        }
-
-        return true;
+        return false;
     }
 
     @Override
     public List<MemberDto> list(MemberParam parameter) {
-        long totalCount = memberMapper.selectListCount(parameter);
-        List<MemberDto> list = memberMapper.selectList(parameter);
 
+        long totalCount = memberMapper.selectListCount(parameter);
+
+        List<MemberDto> list = memberMapper.selectList(parameter);
         if (!CollectionUtils.isEmpty(list)) {
             int i = 0;
             for(MemberDto x : list) {
@@ -183,11 +141,12 @@ public class MemberServiceImpl implements MemberService {
 
         return list;
 
-        // return memberRepository.findAll();
+        //return memberRepository.findAll();
     }
 
     @Override
     public MemberDto detail(String userId) {
+
         Optional<Member> optionalMember  = memberRepository.findById(userId);
         if (optionalMember.isEmpty()) {
             return null;
@@ -200,10 +159,12 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public boolean updateStatus(String userId, String userStatus) {
+
         Optional<Member> optionalMember = memberRepository.findById(userId);
-        if (optionalMember.isEmpty()){
-            throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다 .");
+        if (optionalMember.isEmpty()) {
+            throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
         }
+
         Member member = optionalMember.get();
 
         member.setUserStatus(userStatus);
@@ -214,6 +175,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public boolean updatePassword(String userId, String password) {
+
         Optional<Member> optionalMember = memberRepository.findById(userId);
         if (optionalMember.isEmpty()) {
             throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
@@ -226,10 +188,90 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
 
         return true;
+
+    }
+
+    @Override
+    public ServiceResult updateMember(MemberInput parameter) {
+
+        String userId = parameter.getUserId();
+
+        Optional<Member> optionalMember = memberRepository.findById(userId);
+        if (optionalMember.isEmpty()) {
+            return new ServiceResult(false, "회원 정보가 존재하지 않습니다.");
+        }
+
+        Member member = optionalMember.get();
+
+        member.setPhone(parameter.getPhone());
+        member.setZipcode(parameter.getZipcode());
+        member.setAddr(parameter.getAddr());
+        member.setAddrDetail(parameter.getAddrDetail());
+        member.setUdtDt(LocalDateTime.now());
+        memberRepository.save(member);
+
+        return new ServiceResult();
+    }
+
+    @Override
+    public ServiceResult updateMemberPassword(MemberInput parameter) {
+
+        String userId = parameter.getUserId();
+
+        Optional<Member> optionalMember = memberRepository.findById(userId);
+        if (optionalMember.isEmpty()) {
+            return new ServiceResult(false, "회원 정보가 존재하지 않습니다.");
+        }
+
+        Member member = optionalMember.get();
+
+        if (!PasswordUtils.equals(parameter.getPassword(), member.getPassword())) {
+            return new ServiceResult(false, "비밀번호가 일치하지 않습니다.");
+        }
+
+        String encPassword = PasswordUtils.encPassword(parameter.getNewPassword());
+        member.setPassword(encPassword);
+        memberRepository.save(member);
+
+        return new ServiceResult(true);
+    }
+
+    @Override
+    public ServiceResult withdraw(String userId, String password) {
+
+        Optional<Member> optionalMember = memberRepository.findById(userId);
+        if (optionalMember.isEmpty()) {
+            return new ServiceResult(false, "회원 정보가 존재하지 않습니다.");
+        }
+
+        Member member = optionalMember.get();
+
+        if (!PasswordUtils.equals(password, member.getPassword())) {
+            return new ServiceResult(false, "비밀번호가 일치하지 않습니다.");
+        }
+
+        member.setUserName("삭제회원");
+        member.setPhone("");
+        member.setPassword("");
+        member.setRegDt(null);
+        member.setUdtDt(null);
+        member.setEmailAuthYn(false);
+        member.setEmailAuthDt(null);
+        member.setEmailAuthKey("");
+        member.setResetPasswordKey("");
+        member.setResetPasswordLimitDt(null);
+        member.setUserStatus(MemberCode.MEMBER_STATUS_WITHDRAW);
+        member.setZipcode("");
+        member.setAddr("");
+        member.setAddrDetail("");
+        memberRepository.save(member);
+
+        return new ServiceResult();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         Optional<Member> optionalMember = memberRepository.findById(username);
         if (optionalMember.isEmpty()) {
             throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
@@ -249,14 +291,14 @@ public class MemberServiceImpl implements MemberService {
             throw new MemberStopUserException("탈퇴된 회원 입니다.");
         }
 
-
-        List<GrantedAuthority> grantedAuthorities  = new ArrayList<>();
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        if (member.isAdminYn()){
+        if (member.isAdminYn()) {
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
 
         return new User(member.getUserId(), member.getPassword(), grantedAuthorities);
     }
 }
+
