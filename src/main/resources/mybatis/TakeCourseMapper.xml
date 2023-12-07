@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.fastlms.course.mapper.TakeCourseMapper">
+<mapper namespace="com.example.lms.course.mapper.TakeCourseMapper">
 
     <sql id="selectListWhere">
 
@@ -21,7 +21,7 @@
         <include refid="selectListWhere"/>
     </select>
 
-    <select id="selectList" resultType="com.example.fastlms.course.dto.TakeCourseDto">
+    <select id="selectList" resultType="com.example.lms.course.dto.TakeCourseDto">
         select tc.*
             , c.subject
             , m.user_name
@@ -36,7 +36,7 @@
     </select>
 
     <!-- userId에 해당하는 수강신청 정보 -->
-    <select id="selectListMyCourse" resultType="com.example.fastlms.course.dto.TakeCourseDto">
+    <select id="selectListMyCourse" resultType="com.example.lms.course.dto.TakeCourseDto">
         select tc.*
             , c.subject
         from take_course tc

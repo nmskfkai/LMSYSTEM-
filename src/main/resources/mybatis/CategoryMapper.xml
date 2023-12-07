@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.fastlms.admin.mapper.CategoryMapper">
+<mapper namespace="com.example.lms.admin.mapper.CategoryMapper">
 
 
-    <select id="select" resultType="com.example.fastlms.admin.dto.CategoryDto">
+    <select id="select" resultType="com.example.lms.admin.dto.CategoryDto">
 
         select c.*
              , (select count(*) from course where category_id = c.id) as course_count

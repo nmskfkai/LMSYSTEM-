@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.fastlms.course.mapper.CourseMapper">
+<mapper namespace="com.example.lms.course.mapper.CourseMapper">
 
 
     <sql id="selectListWhere">
@@ -41,7 +41,7 @@
             <include refid="selectListWhere"/>
     </select>
 
-    <select id="selectList" resultType="com.example.fastlms.course.dto.CourseDto">
+    <select id="selectList" resultType="com.example.lms.course.dto.CourseDto">
         select *
         from course
         where 1 = 1
