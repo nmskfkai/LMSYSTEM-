@@ -49,7 +49,7 @@ public class MemberController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.add("Accept", "application/json");
-        //headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
@@ -68,24 +68,25 @@ public class MemberController {
                 String.class
         );
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        OAuthToken oauthToken = null;
-        try {
-            oauthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("카카오 액세스 토큰" + oauthToken.getAccess_token());
-
-
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        OAuthToken oauthToken = null;
+//        try {
+//            oauthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
+//        } catch (JsonMappingException e) {
+//            e.printStackTrace();
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println("카카오 액세스 토큰" + oauthToken.getAccess_token());
+//
+//
 //        RestTemplate rt2 = new RestTemplate();
 //        HttpHeaders headers2 = new HttpHeaders();
-//        headers2.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-//        headers2.add("Authorization", "Bearer"+oauthToken.getAccess_token());
-//        //headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+//
+//
+//        headers2.add("Authorization", "Bearer" +oauthToken.getAccess_token());
+//        headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 //
 //        HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 =
 //                new HttpEntity<>(headers2);
@@ -96,8 +97,9 @@ public class MemberController {
 //                kakaoProfileRequest2,
 //                String.class
 //        );
-        return response.getBody();
-    }
+//        return response2.getBody();
+        return "카카오 로그인 성공";
+     }
 
 
     @GetMapping("/member/find-password")

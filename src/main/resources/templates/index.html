@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title> 화면 </title>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.10/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.10/index.global.min.js'></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth'
+            });
+            calendar.render();
+        });
+
+    </script>
+
 </head>
 <body>
 <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
-<h1> 메인 화면</h1>
-
+<div id='calendar'></div>
 </body>
 </html>

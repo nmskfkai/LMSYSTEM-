@@ -28,7 +28,7 @@ spring:
         registration:
           kakao:
             client-id: 37c93ea0bb15b3614a2375487d27eea1
-            scope: profile_nickname, profile_image
+            scope: profile_nickname, account_email, name
             client-name: Kakao
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8080/auth/kakao/callback
