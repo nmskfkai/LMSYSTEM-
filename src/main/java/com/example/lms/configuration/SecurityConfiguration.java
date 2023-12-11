@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -43,9 +44,10 @@ public class SecurityConfiguration {
                 .requestMatchers("/",
                         "/member/register",
                         "/member/email-auth",
-                        "/member/find-password"
-                        ,"/member/reset/password",
-                        "/static/image/**"
+                        "/member/find-password",
+                        "/member/reset/password",
+                        "/static/image/**",
+                        "/auth/kakao/callback/**"
                         ).permitAll()
                 .requestMatchers("/admin/**")
                 .hasAuthority("ROLE_ADMIN")
@@ -56,6 +58,7 @@ public class SecurityConfiguration {
 //                .hasAuthority("ROLE_ADMIN")
 //        );
 
+        //http.oauth2Login(Customizer.withDefaults());
         http
                 .formLogin()
                         .loginPage("/member/login")	// [A] 커스텀 로그인 페이지 지정
@@ -73,6 +76,8 @@ public class SecurityConfiguration {
                 .accessDeniedPage("/error/denied")
         );
         http.csrf().disable();
+
+
         return http.build();
     }
 

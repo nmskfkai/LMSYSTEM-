@@ -1,0 +1,20 @@
+Native app key	3ffb5d080d2b7dfc6bf7e4ebd76b28cb
+REST API key	37c93ea0bb15b3614a2375487d27eea1
+JavaScript key	fc667a1a188ad4dd528fb027306ea198
+Admin key	52c5cf7834accd38e08c5a9978be465d
+
+로그인 요청 주소 :
+
+응답받은 코드 :
+"https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=37c93ea0bb15b3614a2375487d27eea1
+&redirect_uri=http://localhost:8080/auth/kakao/callback"
+
+토근 발급 요청 주소 : (POST) - http body 에 데이터를 전달 (5가지)
+https://kauth.kakao.com/oauth/token
+MIME : application/x-www-form-urlencoded;charset=utf-8 (key-value)
+grant_type : authorization_code
+client_id : 37c93ea0bb15b3614a2375487d27eea1
+redirect_uri : http://localhost:8080/auth/kakao/callback
+code = {동적임}
+
+
