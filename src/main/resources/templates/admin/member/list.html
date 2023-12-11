@@ -1,8 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>관리자 화면 </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
     <style>
         .list table {
             width: 100%;
@@ -35,82 +43,114 @@
     </style>
 </head>
 <body>
-    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
-    <h1>관리자 회원 관리</h1>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar-->
+    <div class="border-end bg-white" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom bg-light"><img src="/image/002.png" alt="로고" /></div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/member/list.do">회원 관리</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/category/list.do">카테고리 관리</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/course/list.do">강좌 관리</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/takecourse/list.do">수강 관리</a>
 
-    <div class="list">
-
-        <div class="search-form">
-            <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
-
-            <form method="get">
-                <select name="searchType">
-                    <option value="all">전체</option>
-                    <option th:selected="${#strings.equals(param.searchType, 'userId')}" value="userId">아이디</option>
-                    <option th:selected="${#strings.equals(param.searchType, 'userName')}" value="userName">이름</option>
-                    <option th:selected="${#strings.equals(param.searchType, 'phone')}" value="phone">연락처</option>
-                </select>
-                <input th:value="${param.searchValue}" type="sear" name="searchValue" placeholder="검색어 입력"/>
-                <button type="submit">검색</button>
-            </form>
-       </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>NO</th>
-                    <th>
-                        아이디(이메일)
-                    </th>
-                    <th>
-                        이름
-                    </th>
-                    <th>
-                        연락처
-                    </th>
-                    <th>
-                        이메일 인증 여부
-                    </th>
-                    <th>
-                        가입일
-                    </th>
-                    <th>
-                        관리자여부
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr th:each="x : ${list}">
-                    <td th:text="${x.seq}">1</td>
-                    <td>
-                        <a th:text="${x.userId}"
-                           th:href="${'detail.do?userId=' + x.userId}">
-                            satcop@naver.com</a>
-                    </td>
-                    <td th:text="${x.userName}">홍길동</td>
-                    <td th:text="${x.phone}">010-1111-2222</td>
-                    <td>
-                        <p th:if="${x.emailAuthYn}">Y</p>
-                        <p th:if="${x.emailAuthYn eq false}">N</p>
-                    </td>
-                    <td>
-                        <p th:text="${x.regDt}">2021.01.01</p>
-                    </td>
-                    <td>
-                        <p th:if="${x.adminYn}">Y</p>
-                        <p th:if="${x.adminYn eq false}">N</p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-
-        <div class="pager" th:utext="${pager}">
         </div>
-
-
     </div>
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+        <!-- Top navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-light" id="sidebarToggle"><img src="/image/002.png" alt="로고" style="width:50px; height:50px"/></button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/member/logout">Logout</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page content-->
+        <div class="container-fluid">
+            <div >
+
+                <div class="search-form">
+                    <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
+
+                    <form method="get">
+                        <select name="searchType">
+                            <option value="all">전체</option>
+                            <option th:selected="${#strings.equals(param.searchType, 'userId')}" value="userId">아이디</option>
+                            <option th:selected="${#strings.equals(param.searchType, 'userName')}" value="userName">이름</option>
+                            <option th:selected="${#strings.equals(param.searchType, 'phone')}" value="phone">연락처</option>
+                        </select>
+                        <input th:value="${param.searchValue}" type="sear" name="searchValue" placeholder="검색어 입력"/>
+                        <button type="submit">검색</button>
+                    </form>
+                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>
+                            아이디(이메일)
+                        </th>
+                        <th>
+                            이름
+                        </th>
+                        <th>
+                            연락처
+                        </th>
+                        <th>
+                            이메일 인증 여부
+                        </th>
+                        <th>
+                            가입일
+                        </th>
+                        <th>
+                            관리자여부
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="x : ${list}">
+                        <td th:text="${x.seq}">1</td>
+                        <td>
+                            <a th:text="${x.userId}"
+                               th:href="${'detail.do?userId=' + x.userId}">
+                                satcop@naver.com</a>
+                        </td>
+                        <td th:text="${x.userName}">홍길동</td>
+                        <td th:text="${x.phone}">010-1111-2222</td>
+                        <td>
+                            <p th:if="${x.emailAuthYn}">Y</p>
+                            <p th:if="${x.emailAuthYn eq false}">N</p>
+                        </td>
+                        <td>
+                            <p th:text="${x.regDt}">2021.01.01</p>
+                        </td>
+                        <td>
+                            <p th:if="${x.adminYn}">Y</p>
+                            <p th:if="${x.adminYn eq false}">N</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
 
 
+                <div class="pager" th:utext="${pager}">
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
 </body>
 </html>

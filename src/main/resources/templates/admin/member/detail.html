@@ -1,8 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>관리자 화면 </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
     <style>
         .detail table {
             width: 100%;
@@ -15,95 +23,126 @@
     </style>
 </head>
 <body>
-    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
-    <h1>관리자 회원 관리 - 회원 상세 정보</h1>
-
-
-    <div class="detail" >
-
-        <table>
-            <tbody>
-                <tr>
-                    <th>아이디</th>
-                    <td>
-                        <p th:text="${member.userId}"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>이름</th>
-                    <td>
-                        <p th:text="${member.userName}"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>연락처</th>
-                    <td>
-                        <p th:text="${member.phone}"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>가입일</th>
-                    <td>
-                        <p th:text="${member.regDt}"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>이메일 인증</th>
-                    <td>
-                        <p th:text="${member.emailAuthYn}"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>관리자 여부</th>
-                    <td>
-                        <p th:text="${member.adminYn}"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>회원 상태</th>
-                    <td>
-                        <p>
-                            현재상태: <span th:text="${member.userStatus}"></span>
-                        </p>
-                        <div>
-                            <form method="post" action="/admin/member/status.do">
-                                <input th:value="${member.userId}" type="hidden" name="userId"/>
-                                <select name="userStatus">
-                                    <option value="REQ">가입승인중</option>
-                                    <option value="ING">정상이용중</option>
-                                    <option value="STOP">정지중</option>
-                                </select>
-                                <button type="submit">상태 변경</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>비밀번호 초기화</th>
-                    <td>
-                        <div>
-                            <form method="post" action="/admin/member/password.do">
-                                <input th:value="${member.userId}" type="hidden" name="userId"/>
-                                <input type="text" name="password"/>
-                                <button type="submit">비밀번호 초기화</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-
-
-            </tbody>
-        </table>
-
-        <div>
-            <a href="list.do"> 목록 </a>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar-->
+    <div class="border-end bg-white" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom bg-light"><img src="/image/002.png" alt="로고" /></div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/member/list.do">회원 관리</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/category/list.do">카테고리 관리</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/course/list.do">강좌 관리</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/takecourse/list.do">수강 관리</a>
 
         </div>
-
-
     </div>
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+        <!-- Top navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-light" id="sidebarToggle"><img src="/image/002.png" alt="로고" style="width:50px; height:50px"/></button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/member/logout">Logout</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page content-->
+        <div class="container-fluid">
+            <div  >
+
+                <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                        <th>아이디</th>
+                        <td>
+                            <p th:text="${member.userId}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이름</th>
+                        <td>
+                            <p th:text="${member.userName}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>연락처</th>
+                        <td>
+                            <p th:text="${member.phone}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>가입일</th>
+                        <td>
+                            <p th:text="${member.regDt}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>이메일 인증</th>
+                        <td>
+                            <p th:text="${member.emailAuthYn}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>관리자 여부</th>
+                        <td>
+                            <p th:text="${member.adminYn}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>회원 상태</th>
+                        <td>
+                            <p>
+                                현재상태: <span th:text="${member.userStatus}"></span>
+                            </p>
+                            <div>
+                                <form method="post" action="/admin/member/status.do">
+                                    <input th:value="${member.userId}" type="hidden" name="userId"/>
+                                    <select name="userStatus">
+                                        <option value="REQ">가입승인중</option>
+                                        <option value="ING">정상이용중</option>
+                                        <option value="STOP">정지중</option>
+                                    </select>
+                                    <button type="submit">상태 변경</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>비밀번호 초기화</th>
+                        <td>
+                            <div>
+                                <form method="post" action="/admin/member/password.do">
+                                    <input th:value="${member.userId}" type="hidden" name="userId"/>
+                                    <input type="text" name="password"/>
+                                    <button type="submit">비밀번호 초기화</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
 
 
+                    </tbody>
+                </table>
+
+                <div>
+
+                    <button type="button" class="btn btn-primary" onclick="location.href='/admin/member/list.do'">목록 </button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
 </body>
 </html>
