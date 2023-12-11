@@ -31,13 +31,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 public class MemberController {
-    
+
     private final MemberService memberService;
     private final TakeCourseService takeCourseService;
-    
+
     @RequestMapping("/member/login")
     public String login() {
-        
+
         return "member/login";
     }
 
@@ -96,8 +96,9 @@ public class MemberController {
 //                kakaoProfileRequest2,
 //                String.class
 //        );
-//        return response2.getBody();
+        return response.getBody();
     }
+
 
     @GetMapping("/member/find-password")
     public String findPassword() {

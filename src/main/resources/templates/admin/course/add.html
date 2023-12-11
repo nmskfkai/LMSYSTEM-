@@ -1,8 +1,17 @@
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
-    <meta charset="UTF-8">
-    <title>관리자 화면 </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+
     <style>
         .detail table {
             width: 100%;
@@ -27,7 +36,6 @@
             cursor: pointer;
         }
     </style>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
@@ -46,109 +54,138 @@
     </script>
 </head>
 <body>
-<!--<div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>-->
-<h1>강좌 관리 - 강좌 등록</h1>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar-->
+    <div class="border-end bg-white" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom bg-light"><img src="/image/002.png" alt="로고" /></div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/member/list.do">회원 관리</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/category/list.do">카테고리 관리</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/course/list.do">강좌 관리</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/takecourse/list.do">수강 관리</a>
 
-<div class="detail">
-
-    <form id="submitForm" method="post" enctype="multipart/form-data">
-
-        <table>
-            <tbody>
-            <tr>
-                <th>강좌 카테고리</th>
-                <td>
-                    <select name="categoryId" required>
-                        <option value=""> 카테고리 선택 </option>
-                        <option
-                                th:selected="${detail.categoryId == x.id}"
-                                th:each="x : ${category}" th:value="${x.id}" th:text="${x.categoryName}"> 기획 </option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    강좌명
-                </th>
-                <td>
-                    <input th:value="${detail.subject}" type="text" name="subject" required placeholder="강좌명 입력" />
-                </td>
-            </tr>
-
-            <tr>
-                <th>
-                    키워드
-                </th>
-                <td>
-                    <input th:value="${detail.keyword}" type="text" name="keyword" required placeholder="키워드 입력" />
-                </td>
-            </tr>
-
-            <tr>
-                <th>
-                    요약문구
-                </th>
-                <td>
-                    <textarea th:text="${detail.summary}" name="summary" required placeholder="요약문구 입력"></textarea>
-                </td>
-            </tr>
-
-            <tr>
-                <th>
-                    내용
-                </th>
-                <td>
-                    <textarea th:text="${detail.contents}" id="contents" name="contents" placeholder="내용 입력"></textarea>
-                </td>
-            </tr>
-
-
-            <tr>
-                <th>
-                    정가
-                </th>
-                <td>
-                    <input th:value="${detail.price}" type="text" name="price" required placeholder="정가 입력" />
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    판매가
-                </th>
-                <td>
-                    <input th:value="${detail.salePrice}" type="text" name="salePrice" required placeholder="판매가 입력" />
-                </td>
-            </tr>
-
-            <tr>
-                <th>
-                    할인 종료일
-                </th>
-                <td>
-                    <input th:value="${detail.saleEndDt}" type="text" name="saleEndDtText" placeholder="할인 종료일 입력" />
-                </td>
-            </tr>
-
-            <tr>
-                <th>첨부 파일</th>
-                <td>
-                    <input type="file" name="file" />
-                </td>
-            </tr>
-
-            </tbody>
-        </table>
-
-        <div class="buttons">
-            <button th:if="${editMode}" type="submit"> 강좌 수정 하기 </button>
-            <button th:if="${!editMode}" type="submit"> 강좌 등록 하기 </button>
-            <a href="/admin/course/list.do"> 목록 이동 </a>
         </div>
+    </div>
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+        <!-- Top navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-light" id="sidebarToggle"><img src="/image/002.png" alt="로고" style="width:50px; height:50px"/></button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/member/logout">Logout</a></li>
 
-    </form>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page content-->
+        <div class="container-fluid">
+            <div >
+
+                <form id="submitForm" method="post" enctype="multipart/form-data">
+
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>강좌 카테고리</th>
+                            <td>
+                                <select name="categoryId" required>
+                                    <option value=""> 카테고리 선택 </option>
+                                    <option
+                                            th:selected="${detail.categoryId == x.id}"
+                                            th:each="x : ${category}" th:value="${x.id}" th:text="${x.categoryName}"> 기획 </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                강좌명
+                            </th>
+                            <td>
+                                <input th:value="${detail.subject}" type="text" name="subject" required placeholder="강좌명 입력" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                키워드
+                            </th>
+                            <td>
+                                <input th:value="${detail.keyword}" type="text" name="keyword" required placeholder="키워드 입력" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                요약문구
+                            </th>
+                            <td>
+                                <textarea th:text="${detail.summary}" name="summary" required placeholder="요약문구 입력"></textarea>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                내용
+                            </th>
+                            <td>
+                                <textarea th:text="${detail.contents}" id="contents" name="contents" placeholder="내용 입력"></textarea>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th>
+                                정가
+                            </th>
+                            <td>
+                                <input th:value="${detail.price}" type="text" name="price" required placeholder="정가 입력" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                판매가
+                            </th>
+                            <td>
+                                <input th:value="${detail.salePrice}" type="text" name="salePrice" required placeholder="판매가 입력" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                할인 종료일
+                            </th>
+                            <td>
+                                <input th:value="${detail.saleEndDt}" type="text" name="saleEndDtText" placeholder="할인 종료일 입력" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>첨부 파일</th>
+                            <td>
+                                <input type="file" name="file" />
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="buttons">
+                        <button th:if="${editMode}" type="submit"> 강좌 수정 하기 </button>
+                        <button th:if="${!editMode}" type="submit"> 강좌 등록 하기 </button>
+                        <a href="/admin/course/list.do"> 목록 이동 </a>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
 </div>
-
-
 <script type="text/javascript" src="/res/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
 
@@ -167,5 +204,9 @@
     }, 100);
 
 </script>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
 </body>
 </html>

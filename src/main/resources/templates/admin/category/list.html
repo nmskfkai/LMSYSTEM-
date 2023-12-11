@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>관리자 화면 </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
     <style>
         .list table {
             width: 100%;
@@ -59,83 +66,113 @@
     </script>
 </head>
 <body>
-    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
-    <h1>카테고리 관리</h1>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar-->
+    <div class="border-end bg-white" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom bg-light"><img src="/image/002.png" alt="로고" /></div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/member/list.do">회원 관리</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/category/list.do">카테고리 관리</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/course/list.do">강좌 관리</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/takecourse/list.do">수강 관리</a>
 
-
-<div class="list">
-
-    <div>
-        <form method="post" action="/admin/category/add.do">
-            <input type="text" name="categoryName" required placeholder="카테고리명 입력"/>
-            <button type="submit">추가</button>
-        </form>
+        </div>
     </div>
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+        <!-- Top navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-light" id="sidebarToggle"><img src="/image/002.png" alt="로고" style="width:50px; height:50px"/></button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/member/logout">Logout</a></li>
 
-    <table>
-        <thead>
-        <tr>
-            <th> ID</th>
-            <th>
-                카테고리명
-            </th>
-            <th>
-                순서
-            </th>
-            <th>
-                사용여부
-            </th>
-            <th>
-                비고
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr th:each="x : ${list}">
-                <td th:text="${x.id}">
-                    <input type="hidden" name="id" th:value="${x.id}"/>
-                    <p th:text="${x.id}">1</p>
-                </td>
-                <td>
-                    <input th:value="${x.categoryName}" type="text" name="categoryName"/>
-                </td>
-                <td>
-                    <input th:value="${x.sortValue}" type="text" name="sortValue"/>
-                </td>
-                <td>
-                    <input th:checked="${x.usingYn}" type="checkbox" th:id="'usingYn_' + ${x.id}" th:name="'usingYn_' + ${x.id}" value="true"/>
-                    <label th:for="'usingYn_' + ${x.id}">사용</label>
-                </td>
-                <td>
-                    <div class="inline-div">
-                        <button class="update-button" type="button">수정</button>
-                    </div>
-                    <div class="inline-div">
-                        <form name="deleteForm" method="post" action="/admin/category/delete.do">
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page content-->
+        <div class="container-fluid">
+            <div class="list">
+
+                <div>
+                    <form method="post" action="/admin/category/add.do">
+                        <input type="text" name="categoryName" required placeholder="카테고리명 입력"/>
+                        <button type="submit" class="btn btn-primary">추가</button>
+                    </form>
+                </div>
+
+                <table >
+                    <thead>
+                    <tr>
+                        <th> ID</th>
+                        <th>
+                            카테고리명
+                        </th>
+                        <th>
+                            순서
+                        </th>
+                        <th>
+                            사용여부
+                        </th>
+                        <th>
+                            비고
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="x : ${list}">
+                        <td th:text="${x.id}">
                             <input type="hidden" name="id" th:value="${x.id}"/>
-                            <button type="submit">삭제</button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            <tr th:if="${#lists.size(list) < 1}">
-                <td colspan="5" >
-                    <p class="nothing">내용이 없습니다.</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                            <p th:text="${x.id}">1</p>
+                        </td>
+                        <td>
+                            <input th:value="${x.categoryName}" type="text" name="categoryName"/>
+                        </td>
+                        <td>
+                            <input th:value="${x.sortValue}" type="text" name="sortValue"/>
+                        </td>
+                        <td>
+                            <input th:checked="${x.usingYn}" type="checkbox" th:id="'usingYn_' + ${x.id}" th:name="'usingYn_' + ${x.id}" value="true"/>
+                            <label th:for="'usingYn_' + ${x.id}">사용</label>
+                        </td>
+                        <td>
+                            <div class="inline-div">
+                                <button class="update-button btn-primary" type="button" >수정</button>
+                            </div>
+                            <div class="inline-div">
+                                <form name="deleteForm" method="post" action="/admin/category/delete.do">
+                                    <input type="hidden" name="id" th:value="${x.id}"/>
+                                    <button type="submit">삭제</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.size(list) < 1}">
+                        <td colspan="5" >
+                            <p class="nothing">내용이 없습니다.</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
 
+            </div>
+
+        </div>
+    </div>
 </div>
-
-
 <form name="updateForm" method="post" action="/admin/category/update.do">
     <input type="hidden" name="id"/>
     <input type="hidden" name="categoryName"/>
     <input type="hidden" name="sortValue"/>
     <input type="hidden" name="usingYn" />
 </form>
-
-
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
 </body>
 </html>

@@ -1,44 +1,86 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>회원 정보</title>
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
 </head>
 <body>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar-->
+    <div class="border-end bg-white" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom bg-light">LMS</div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/member/info">회원 정보 수정</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/member/password">비밀번호 변경</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/member/takecourse">내 수강 목록</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/">메인으로</a>
 
-<h1>회원 탈퇴</h1>
-<!--<div th:replace="/fragments/layout.html :: fragment-body-menu"></div>-->
-
-<div>
-    <hr/>
-    <a href="/member/info">회원 정보 수정</a>
-    |
-    <a href="/member/password">비밀번호 변경</a>
-    |
-    <a href="/member/takecourse">내 수강 목록</a>
-    <hr/>
-</div>
-
-<div>
-    <p>
-        회원 탈퇴를 하면
-        서비스를 더이상 이용하실 수 없습니다.
-        <br/>
-        회원 탈퇴를 진행하시겠습니까?
-    </p>
-
-    <form id="submitForm" method="post">
-        <div>
-            <input type="password" name="password" placeholder="현재 비밀번호 입력" required/>
         </div>
-        <div>
-            <button type="submit">회원 탈퇴 하기</button>
+    </div>
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+        <!-- Top navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-light" id="sidebarToggle"><img src="/image/002.png" alt="로고" style="width:50px; height:50px"/></button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#!">Action</a>
+                                <a class="dropdown-item" href="#!">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#!">Something else here</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page content-->
+        <div class="container-fluid">
+            <div class="container mt-5 position-absolute bottom-50  start-50 translate-middle">
+                <div class="row">
+                    <div class="card" style="border:0 solid black; width: 35rem;">
+            <div>
+                <p>
+                    회원 탈퇴를 하면
+                    서비스를 더이상 이용하실 수 없습니다.
+                    <br/>
+                    회원 탈퇴를 진행하시겠습니까?
+                </p>
+
+                <form id="submitForm" method="post">
+                    <div>
+                        <input type="password" name="password" class="form-control" placeholder="현재 비밀번호 입력" required/>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary" >회원 탈퇴 하기</button>
+                    </div>
+
+                </form>
+            </div>
+                </div>
+            </div>
+            </div>
         </div>
-
-    </form>
+    </div>
 </div>
-
-
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
 </body>
 </html>
