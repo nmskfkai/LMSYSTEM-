@@ -1,7 +1,8 @@
 package com.example.lms.member.controller;
 
 import com.example.lms.admin.dto.MemberDto;
-import com.example.lms.admin.model.OAuthToken;
+import com.example.lms.member.model.KakaoProfile;
+import com.example.lms.member.model.OAuthToken;
 import com.example.lms.course.dto.TakeCourseDto;
 import com.example.lms.course.model.ServiceResult;
 import com.example.lms.course.service.TakeCourseService;
@@ -47,6 +48,7 @@ public class MemberController {
         RestTemplate rt = new RestTemplate();
         rt.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
         HttpHeaders headers = new HttpHeaders();
+
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.add("Accept", "application/json");
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
@@ -54,7 +56,7 @@ public class MemberController {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
         params.add("client_id", "37c93ea0bb15b3614a2375487d27eea1");
-        params.add("client_secret", "dnUYTjh6ZK2PNBbL60gWTCbImbavWaMq");
+        params.add("client_secret", "7BbE7NqzuF4FbLfBODfkCzd31ENyQ7aF");
         params.add("redirect_uri", "http://localhost:8080/auth/kakao/callback");
         params.add("code", code);
 
@@ -68,37 +70,52 @@ public class MemberController {
                 String.class
         );
 
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        OAuthToken oauthToken = null;
-//        try {
-//            oauthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
-//        } catch (JsonMappingException e) {
-//            e.printStackTrace();
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.println("카카오 액세스 토큰" + oauthToken.getAccess_token());
-//
-//
-//        RestTemplate rt2 = new RestTemplate();
-//        HttpHeaders headers2 = new HttpHeaders();
-//
-//
-//        headers2.add("Authorization", "Bearer" +oauthToken.getAccess_token());
-//        headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-//
-//        HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 =
-//                new HttpEntity<>(headers2);
-//
-//        ResponseEntity<String> response2 = rt2.exchange(
-//                "https://kapi.kakao.com/v2/user/me",
-//                HttpMethod.POST,
-//                kakaoProfileRequest2,
-//                String.class
-//        );
-//        return response2.getBody();
-        return "카카오 로그인 성공";
+        ObjectMapper objectMapper = new ObjectMapper();
+        OAuthToken oauthToken = null;
+        try {
+            oauthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("카카오 액세스 토큰" + oauthToken.getAccess_token());
+
+
+        RestTemplate rt2 = new RestTemplate();
+        HttpHeaders headers2 = new HttpHeaders();
+
+
+        headers2.add("Authorization", "Bearer " +oauthToken.getAccess_token());
+        headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 =
+                new HttpEntity<>(params, headers2);
+
+        ResponseEntity<String> response2 = rt2.exchange(
+                "https://kapi.kakao.com/v2/user/me",
+                HttpMethod.GET,
+                kakaoProfileRequest2,
+                String.class
+        );
+
+        ObjectMapper objectMapper2 = new ObjectMapper();
+        KakaoProfile kakaoProfile = null;
+        try {
+            kakaoProfile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(kakaoProfile.getId());
+        System.out.println(kakaoProfile.getKakao_account().getEmail());
+
+
+        System.out.println(response2.getBody());
+
+        return response2.getBody();
      }
 
 

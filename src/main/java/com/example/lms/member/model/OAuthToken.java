@@ -1,4 +1,4 @@
-package com.example.lms.admin.model;
+package com.example.lms.member.model;
 
 import lombok.Data;
 
