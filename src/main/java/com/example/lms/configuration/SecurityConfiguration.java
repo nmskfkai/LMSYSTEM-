@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -43,10 +44,11 @@ public class SecurityConfiguration {
                 .requestMatchers("/",
                         "/member/register",
                         "/member/email-auth",
-                        "/member/find-password"
-                        ,"/member/reset/password",
-                        "/static/image/**"
-                        ).permitAll()
+                        "/member/find-password",
+                        "/member/reset/password",
+                        "/static/image/**",
+                        "/auth/kakao/callback/**"
+                ).permitAll()
                 .requestMatchers("/admin/**")
                 .hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()); // 나머지 API에 대해서는 인증을 요구
@@ -56,16 +58,17 @@ public class SecurityConfiguration {
 //                .hasAuthority("ROLE_ADMIN")
 //        );
 
+        //http.oauth2Login(Customizer.withDefaults());
         http
                 .formLogin()
-                        .loginPage("/member/login")	// [A] 커스텀 로그인 페이지 지정
-                        .defaultSuccessUrl("/", true)
-                        //.usernameParameter("email")
-                        .permitAll();
+                .loginPage("/member/login")	// [A] 커스텀 로그인 페이지 지정
+                .defaultSuccessUrl("/", true)
+                //.usernameParameter("email")
+                .permitAll();
 
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/member/login")
                 .invalidateHttpSession(true);
 
         http.exceptionHandling(exception -> exception
@@ -73,6 +76,8 @@ public class SecurityConfiguration {
                 .accessDeniedPage("/error/denied")
         );
         http.csrf().disable();
+
+
         return http.build();
     }
 
@@ -89,4 +94,3 @@ public class SecurityConfiguration {
     }
 
 }
-

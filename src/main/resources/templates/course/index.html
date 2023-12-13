@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>LMS</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -16,17 +16,20 @@
             text-decoration: line-through;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="d-flex" id="wrapper">
     <!-- Sidebar-->
     <div class="border-end bg-white" id="sidebar-wrapper">
-        <div class="sidebar-heading border-bottom bg-light"><img src="/image/002.png" alt="로고" /></div>
+        <div class="sidebar-heading border-bottom bg-light"><img src="/image/013.png" alt="로고" /></div>
         <div class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/member/info">회원 정보 수정</a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/member/password">비밀번호 변경</a>
             <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/member/takecourse">내 수강 목록</a>
-            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/">돌아가기</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/course">수강 신청</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/">메인으로</a>
 
         </div>
     </div>
@@ -35,11 +38,22 @@
         <!-- Top navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
             <div class="container-fluid">
-                <button class="btn btn-light" id="sidebarToggle"><img src="/image/002.png" alt="로고" style="width:50px; height:50px"/></button>
+                <button class="btn btn-light" id="sidebarToggle"><img src="/image/004.gif" alt="로고" style="width:50px; height:50px"/></button>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                        <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item me-3"><a class="nav-link" href="#"><td th:text="${detail.userName}"/>님</a></li>
+                        <li class="nav-item dropdown me-3">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Status</a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/">User</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/admin/member/list.do">admin</a>
+
+
+
+                            </div>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="/member/logout">Logout</a></li>
 
                     </ul>
@@ -48,37 +62,74 @@
         </nav>
         <!-- Page content-->
         <div class="container-fluid">
-            <div>
-                <a href="?">
-                    전체 (<span th:text="${courseTotalCount}">0</span>)</a>
 
-                <th:block th:each="y : ${categoryList}">
-                    |
-                    <a th:href="'/course?categoryId=' + ${y.id}">
-                        <span th:text="${y.categoryName}">카테고리명</span> (<span th:text="${y.courseCount}">0</span>)</a>
-                </th:block>
+<!--                <a href="?">-->
+<!--                    전체 (<span th:text="${courseTotalCount}">0</span>)</a>-->
 
-                <hr/>
-            </div>
+<!--                <th:block th:each="y : ${categoryList}">-->
+<!--                    |-->
+<!--                    <a th:href="'/course?categoryId=' + ${y.id}">-->
+<!--                        <span th:text="${y.categoryName}">카테고리명</span> (<span th:text="${y.courseCount}">0</span>)</a>-->
+<!--                </th:block>-->
 
-            <ul>
-                <li th:each="x : ${list}">
-                    <div>
+<!--                <hr/>-->
+
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+
+                    <th>
+                        강좌명
+                    </th>
+                    <th>
+                        판매가
+                    </th>
+                    <th colspan="3">
+                        할인가
+                    </th>
+
+
+
+                </tr>
+                </thead>
+                <tbody id="dataLIst">
+                <tr th:each="x : ${list}">
+
+
+                    <td >
                         <a th:href="'/course/' + ${x.id}">
-                            <h3 th:text="${x.subject}">강좌명</h3>
-                        </a>
-                        <div>
-                            <p th:text="${x.summary}"></p>
-                            <p>
-                                판매가: <span class="price" th:text="${x.price}"></span>
-                                할인가: <span th:text="${x.salePrice}"></span>
-                            </p>
-                        </div>
-                    </div>
+                            <p th:text="${x.subject}">2021.01.01</p></a>
+                    </td>
 
 
-                </li>
-            </ul>
+                    <td >
+                        <p class="price" th:text="${x.price}" >10000</p>
+                    </td>
+
+                    <td >
+                        <p th:text="${x.salePrice}"> 10000</p>
+                    </td>
+
+
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+
+
+
+
+
+                </tbody>
+            </table>
+
         </div>
     </div>
 </div>
