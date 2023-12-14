@@ -1,7 +1,6 @@
 package com.example.lms.member.controller;
 
 import com.example.lms.admin.dto.MemberDto;
-import com.example.lms.admin.model.OAuthToken;
 import com.example.lms.course.dto.TakeCourseDto;
 import com.example.lms.course.model.ServiceResult;
 import com.example.lms.course.service.TakeCourseService;
