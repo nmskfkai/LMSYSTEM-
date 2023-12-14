@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>LMS</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -44,8 +44,20 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                        <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item me-3"><a class="nav-link" href="#">관리자님</a></li>
+                        <li class="nav-item dropdown me-3">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Status</a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/">User</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/admin/member/list.do">admin</a>
+
+
+
+                            </div>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="/member/logout">Logout</a></li>
+
 
                     </ul>
                 </div>
@@ -102,25 +114,25 @@
                             <div>
                                 <form method="post" action="/admin/member/status.do">
                                     <input th:value="${member.userId}" type="hidden" name="userId"/>
-                                    <select name="userStatus">
+                                    <select class="form-select-sm" name="userStatus" >
                                         <option value="REQ">가입승인중</option>
                                         <option value="ING">정상이용중</option>
                                         <option value="STOP">정지중</option>
                                     </select>
-                                    <button type="submit">상태 변경</button>
+                                    <button type="submit" class="btn btn-primary">상태 변경</button>
                                 </form>
                             </div>
                         </td>
                     </tr>
 
                     <tr>
-                        <th>비밀번호 초기화</th>
+                        <th class="form-control-sm">비밀번호 초기화</th>
                         <td>
                             <div>
                                 <form method="post" action="/admin/member/password.do">
                                     <input th:value="${member.userId}" type="hidden" name="userId"/>
                                     <input type="text" name="password"/>
-                                    <button type="submit">비밀번호 초기화</button>
+                                    <button type="submit" class="btn btn-primary">비밀번호 초기화</button>
                                 </form>
                             </div>
                         </td>

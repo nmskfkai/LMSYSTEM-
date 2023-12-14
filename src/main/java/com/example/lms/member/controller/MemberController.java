@@ -1,19 +1,29 @@
 package com.example.lms.member.controller;
 
 import com.example.lms.admin.dto.MemberDto;
+import com.example.lms.admin.model.OAuthToken;
 import com.example.lms.course.dto.TakeCourseDto;
 import com.example.lms.course.model.ServiceResult;
 import com.example.lms.course.service.TakeCourseService;
 import com.example.lms.member.model.MemberInput;
 import com.example.lms.member.model.ResetPasswordInput;
 import com.example.lms.member.service.MemberService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.*;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import java.security.Principal;
 import java.util.List;
@@ -30,7 +40,6 @@ public class MemberController {
 
         return "member/login";
     }
-
 
     @GetMapping("/member/find-password")
     public String findPassword() {

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>LMS</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -118,8 +118,20 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                        <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item me-3"><a class="nav-link" href="#">관리자님</a></li>
+                        <li class="nav-item dropdown me-3">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Status</a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/">User</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/admin/member/list.do">admin</a>
+
+
+
+                            </div>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="/member/logout">Logout</a></li>
+
 
                     </ul>
                 </div>
@@ -130,14 +142,14 @@
             <div >
 
                 <div class="buttons">
-                    <select id="searchCourseId">
+                    <select id="searchCourseId" class="form-select-sm mt-3" style="width:120px; height:40px">
                         <option value="">전체 강좌</option>
                         <option th:each="x : ${courseList}"
                                 th:selected="${#strings.equals(param.searchCourseId, x.id)}"
                                 th:value="${x.id}" th:text="${x.subject}">자바 프로그래밍</option>
                     </select>
 
-                    <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
+<!--                    <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>-->
                 </div>
 
                 <table class="table table-striped">
@@ -150,8 +162,14 @@
                         <th>
                             강좌명
                         </th>
-                        <th colspan="3">
+                        <th >
                             신청인
+                        </th>
+                        <th>
+                            아이디
+                        </th>
+                        <th>
+                            전화번호
                         </th>
                         <th>
                             상태
@@ -173,13 +191,13 @@
                             <p th:text="${x.subject}">강좌명 </p>
                         </td>
                         <td>
-                            <p th:text="${x.userName}"></p>
+                            <p th:text="${x.userName}">이름</p>
                         </td>
                         <td>
-                            <p th:text="${x.userId}"></p>
+                            <p th:text="${x.userId}">아이디</p>
                         </td>
                         <td>
-                            <p th:text="${x.phone}"></p>
+                            <p th:text="${x.phone}">전화번호</p>
                         </td>
                         <td>
                             <p th:if="${x.status eq 'REQ'}">수강신청</p>

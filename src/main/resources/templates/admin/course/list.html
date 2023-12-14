@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>LMS</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -125,7 +125,18 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                        <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item me-3"><a class="nav-link" href="#">관리자님</a></li>
+                        <li class="nav-item dropdown me-3">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Status</a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/">User</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/admin/member/list.do">admin</a>
+
+
+
+                            </div>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="/member/logout">Logout</a></li>
 
                     </ul>
@@ -134,16 +145,16 @@
         </nav>
         <!-- Page content-->
         <div class="container-fluid">
-            <div class="list">
+            <div >
 
                 <div class="buttons">
                     <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
+                    <button type="button" class="btn btn-primary" size="width:80px" onclick="location.href='/admin/course/add.do'">강좌 등록</button>
 
-                    <a href="/admin/course/add.do"> 강좌 등록 </a>
-                    <button id="deleteButton" type="button"> 선택 삭제 </button>
+                    <button id="deleteButton" type="button" class="btn btn-primary"> 선택 삭제 </button>
                 </div>
 
-                <table>
+                <table class="table table-striped mt-3">
                     <thead>
                     <tr>
                         <th>
