@@ -1,8 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title> 화면 </title>
+
+    <meta charset="utf-8" />
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>LMS</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+
+
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.10/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.10/index.global.min.js'></script>
     <script>
@@ -10,7 +24,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth'
+
+                initialView: 'dayGridMonth',
+                googleCalendarApiKey: 'AIzaSyBY7j-NcQbblor8glR1XxWvYH0fFW9P6eU',
+                events: {
+                    googleCalendarId: '6568565ecd7e94711a8c92c1c35d5056dadaf00b16552e08c974fef340e23805@group.calendar.google.com',
+                    className: 'gcal-event'
+                }
             });
             calendar.render();
         });
@@ -19,7 +39,60 @@
 
 </head>
 <body>
-<div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
-<div id='calendar'></div>
+
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar-->
+    <div class="border-end bg-white" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom bg-light"><img src="/image/002.png" alt="로고" /></div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/member/info">회원 정보 수정</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/member/password">비밀번호 변경</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/member/takecourse">내 수강 목록</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/course">수강 신청</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/">메인으로</a>
+
+        </div>
+    </div>
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+        <!-- Top navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-light" id="sidebarToggle"><img src="/image/004.gif" alt="로고" style="width:50px; height:50px"/></button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        <li class="nav-item me-3"><a class="nav-link" href="#"><td th:text="${detail.userName}"/>님</a></li>
+                        <li class="nav-item dropdown me-3">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Status</a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/">User</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/admin/member/list.do">admin</a>
+
+
+
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/member/logout">Logout</a></li>
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page content-->
+        <div class="container-fluid">
+
+            <iframe src="https://calendar.google.com/calendar/embed?src=6568565ecd7e94711a8c92c1c35d5056dadaf00b16552e08c974fef340e23805%40group.calendar.google.com&ctz=Asia%2FSeoul" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
+
 </body>
 </html>

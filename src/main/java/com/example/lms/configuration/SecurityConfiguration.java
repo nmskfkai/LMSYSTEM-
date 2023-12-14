@@ -50,6 +50,7 @@ public class SecurityConfiguration {
                         "/auth/kakao/callback/**",
                         "/member/kakaoTerms"
                         ).permitAll()
+
                 .requestMatchers("/admin/**")
                 .hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()); // 나머지 API에 대해서는 인증을 요구
@@ -62,14 +63,14 @@ public class SecurityConfiguration {
         //http.oauth2Login(Customizer.withDefaults());
         http
                 .formLogin()
-                        .loginPage("/member/login")	// [A] 커스텀 로그인 페이지 지정
-                        .defaultSuccessUrl("/", true)
-                        //.usernameParameter("email")
-                        .permitAll();
+                .loginPage("/member/login")	// [A] 커스텀 로그인 페이지 지정
+                .defaultSuccessUrl("/", true)
+                //.usernameParameter("email")
+                .permitAll();
 
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/member/login")
                 .invalidateHttpSession(true);
 
         http.exceptionHandling(exception -> exception
@@ -95,4 +96,3 @@ public class SecurityConfiguration {
     }
 
 }
-
