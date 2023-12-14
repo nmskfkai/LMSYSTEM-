@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+  <tr>
+    <td>썸네일 :</td>
+    <td><img th:src="${list[0]}"></td>
+  </tr>
+  <tr>
+    <td>이름 :</td>
+    <td th:text="${list[1]}"></td>
+  </tr>
+  <tr>
+    <td>이메일 :</td>
+    <td th:text="${list[2]}"></td>
+  </tr>
+  <tr>
+    <td>생일 :</td>
+    <td th:text="${list[3]}"></td>
+  </tr>
+</table>
+</body>
+</html>

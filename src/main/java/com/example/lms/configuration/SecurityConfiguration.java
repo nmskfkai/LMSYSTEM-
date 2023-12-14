@@ -47,7 +47,8 @@ public class SecurityConfiguration {
                         "/member/find-password",
                         "/member/reset/password",
                         "/static/image/**",
-                        "/auth/kakao/callback/**"
+                        "/auth/kakao/callback/**",
+                        "/member/kakaoTerms"
                         ).permitAll()
                 .requestMatchers("/admin/**")
                 .hasAuthority("ROLE_ADMIN")
