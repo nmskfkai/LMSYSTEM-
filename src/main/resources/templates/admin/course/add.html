@@ -105,7 +105,7 @@
                         <tr>
                             <th>강좌 카테고리</th>
                             <td>
-                                <select name="categoryId" required>
+                                <select class="form-select-sm" name="categoryId" required>
                                     <option value=""> 카테고리 선택 </option>
                                     <option
                                             th:selected="${detail.categoryId == x.id}"
@@ -118,7 +118,7 @@
                                 강좌명
                             </th>
                             <td>
-                                <input th:value="${detail.subject}" type="text" name="subject" required placeholder="강좌명 입력" />
+                                <input class="form-control-sm" th:value="${detail.subject}" type="text" name="subject" required placeholder="강좌명 입력" />
                             </td>
                         </tr>
 
@@ -127,16 +127,7 @@
                                 키워드
                             </th>
                             <td>
-                                <input th:value="${detail.keyword}" type="text" name="keyword" required placeholder="키워드 입력" />
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                요약문구
-                            </th>
-                            <td>
-                                <textarea th:text="${detail.summary}" name="summary" required placeholder="요약문구 입력"></textarea>
+                                <input class="form-control-sm" th:value="${detail.keyword}" type="text" name="keyword" required placeholder="키워드 입력" />
                             </td>
                         </tr>
 
@@ -145,9 +136,11 @@
                                 내용
                             </th>
                             <td>
-                                <textarea th:text="${detail.contents}" id="contents" name="contents" placeholder="내용 입력"></textarea>
+                                <textarea class="form-control-sm" th:text="${detail.summary}" name="summary" required placeholder="요약문구 입력"></textarea>
                             </td>
                         </tr>
+
+
 
 
                         <tr>
@@ -155,7 +148,7 @@
                                 정가
                             </th>
                             <td>
-                                <input th:value="${detail.price}" type="text" name="price" required placeholder="정가 입력" />
+                                <input class="form-control-sm" th:value="${detail.price}" type="text" name="price" required placeholder="정가 입력" />
                             </td>
                         </tr>
                         <tr>
@@ -163,7 +156,7 @@
                                 판매가
                             </th>
                             <td>
-                                <input th:value="${detail.salePrice}" type="text" name="salePrice" required placeholder="판매가 입력" />
+                                <input class="form-control-sm" th:value="${detail.salePrice}" type="text" name="salePrice" required placeholder="판매가 입력" />
                             </td>
                         </tr>
 
@@ -172,14 +165,16 @@
                                 할인 종료일
                             </th>
                             <td>
-                                <input th:value="${detail.saleEndDt}" type="text" name="saleEndDtText" placeholder="할인 종료일 입력" />
+                                <input class="form-control-sm" th:value="${detail.saleEndDt}" type="text" name="saleEndDtText" placeholder="할인 종료일 입력" />
                             </td>
                         </tr>
 
                         <tr>
-                            <th>첨부 파일</th>
+                            <th>
+                                첨부내용
+                            </th>
                             <td>
-                                <input type="file" name="file" />
+                                <textarea class="form-control-sm" th:text="${detail.contents}" id="contents" name="contents" placeholder="내용 입력"></textarea>
                             </td>
                         </tr>
 

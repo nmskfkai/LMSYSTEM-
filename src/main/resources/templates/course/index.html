@@ -60,77 +60,54 @@
                 </div>
             </div>
         </nav>
+
+
         <!-- Page content-->
-        <div class="container-fluid">
-
-<!--                <a href="?">-->
-<!--                    전체 (<span th:text="${courseTotalCount}">0</span>)</a>-->
-
-<!--                <th:block th:each="y : ${categoryList}">-->
-<!--                    |-->
-<!--                    <a th:href="'/course?categoryId=' + ${y.id}">-->
-<!--                        <span th:text="${y.categoryName}">카테고리명</span> (<span th:text="${y.courseCount}">0</span>)</a>-->
-<!--                </th:block>-->
-
-<!--                <hr/>-->
+        <div class="container" >
+            <div class="row">
 
 
-            <table class="table table-striped">
-                <thead>
-                <tr>
+                <div class="col -4" th:each="x : ${list}">
+                    <div class="card mt-3" style="width: 15rem;">
+                        <img class="card-img-top mt-3" th:src="${x.contents}" width=50px height=150px alt="Card image cap">
+                        <div class="card-body " width=100px; height=100px>
+                            <h5 class="card-title" th:text="${x.subject}">Card title</h5>
+                            <p class="price text-decoration-line-through" th:text="${x.price}" >10000</p>
+                            <p th:text="${x.salePrice}"> 10000</p>
+                            <a th:href="'/course/' + ${x.id}" class="btn btn-primary">수강신청</a>
+                        </div>
+                    </div>
 
-                    <th>
-                        강좌명
-                    </th>
-                    <th>
-                        판매가
-                    </th>
-                    <th colspan="3">
-                        할인가
-                    </th>
+                </div>
 
 
 
-                </tr>
-                </thead>
-                <tbody id="dataLIst">
-                <tr th:each="x : ${list}">
-
-
-                    <td >
-                        <a th:href="'/course/' + ${x.id}">
-                            <p th:text="${x.subject}">2021.01.01</p></a>
-                    </td>
-
-
-                    <td >
-                        <p class="price" th:text="${x.price}" >10000</p>
-                    </td>
-
-                    <td >
-                        <p th:text="${x.salePrice}"> 10000</p>
-                    </td>
-
-
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-
-
-
-
-
-                </tbody>
-            </table>
+            </div>
 
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 </div>
 <!-- Bootstrap core JS-->
