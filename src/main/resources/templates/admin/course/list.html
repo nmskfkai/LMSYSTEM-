@@ -171,7 +171,7 @@
                     </tr>
                     </thead>
                     <tbody id="dataLIst">
-                    <tr th:each="x : ${list}">
+                    <tr th:each="x, i: ${list}">
                         <td>
                             <input type="checkbox" th:value="${x.id}" />
                         </td>
