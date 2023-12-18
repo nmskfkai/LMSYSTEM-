@@ -24,7 +24,7 @@ public class KakaoController {
         StringBuffer url = new StringBuffer();
         url.append("https://kauth.kakao.com/oauth/authorize?");
         url.append("response_type=code");
-        url.append("&client_id=" + "37c93ea0bb15b3614a2375487d27eea1");
+        url.append("&client_id=" + "b9a046542d78ab2aa5321c87fe475bbc");
         url.append("&redirect_uri=http://localhost:8080/auth/kakao/callback");
 
         return "redirect:" + url.toString();
