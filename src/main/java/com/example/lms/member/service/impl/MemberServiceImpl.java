@@ -70,7 +70,7 @@ public class MemberServiceImpl implements MemberService {
         String email = parameter.getUserId();
         String subject = "LMS 사이트 가입을 축하드립니다. ";
         String text = "<p>LMS 사이트 가입을 축하드립니다.<p><p>아래 링크를 클릭하셔서 가입을 완료 하세요.</p>"
-                + "<div><a target='_blank' href='http://localhost:8080/member/email-auth?id=" + uuid + "'> 가입 완료 </a></div>";
+                + "<div><a target='_blank' href='http://13.209.64.218:8080/member/email-auth?id=" + uuid + "'> 가입 완료 </a></div>";
         mailComponents.sendMail(email, subject, text);
 
         return true;
