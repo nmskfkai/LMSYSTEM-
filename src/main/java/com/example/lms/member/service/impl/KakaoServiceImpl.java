@@ -1,7 +1,9 @@
 package com.example.lms.member.service.impl;
 
 import com.example.lms.member.entity.KakaoUser;
+import com.example.lms.member.entity.Member;
 import com.example.lms.member.repository.KakaoRespository;
+import com.example.lms.member.repository.MemberRepository;
 import com.example.lms.member.service.KakaoService;
 import com.nimbusds.jose.shaded.gson.JsonElement;
 import com.nimbusds.jose.shaded.gson.JsonObject;
@@ -15,6 +17,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -23,6 +26,7 @@ public class KakaoServiceImpl implements KakaoService{
 
     @Autowired
     KakaoRespository kakaoRespository;
+    MemberRepository memberRepository;
     @Override
     public String getToken(String code) throws Exception {
         String access_Token = "";
@@ -44,7 +48,7 @@ public class KakaoServiceImpl implements KakaoService{
         sb.append("grant_type=authorization_code");
         sb.append("&client_id=37c93ea0bb15b3614a2375487d27eea1");
         sb.append("&client_secret=7BbE7NqzuF4FbLfBODfkCzd31ENyQ7aF");
-        sb.append("&redirect_uri=http://localhost:8080/auth/kakao/callback");
+        sb.append("&redirect_uri=http://13.209.64.218:8080/auth/kakao/callback");
         sb.append("&code=" + code);
         bw.write(sb.toString());
         bw.flush();
@@ -143,6 +147,17 @@ public class KakaoServiceImpl implements KakaoService{
         //DB 저장
         KakaoUser kakaouser = new KakaoUser(ninkname,"1234",ninkname,email,gender,birthday);
         kakaoRespository.save(kakaouser);
+        //DB 저장
+        Member member = Member.builder()
+                .userId(ninkname) // 예시로 userId에 닉네임을 저장하도록 함
+                .userName(ninkname)
+                .password("1234") // 예시로 고정된 비밀번호를 저장하도록 함
+                .regDt(LocalDateTime.now())
+                .emailAuthYn(true)
+                .userStatus(Member.MEMBER_STATUS_ING)
+                .build();
+        memberRepository.save(member);
+
 
         return list;
     }

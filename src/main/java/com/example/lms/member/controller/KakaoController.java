@@ -25,7 +25,7 @@ public class KakaoController {
         url.append("https://kauth.kakao.com/oauth/authorize?");
         url.append("response_type=code");
         url.append("&client_id=" + "37c93ea0bb15b3614a2375487d27eea1");
-        url.append("&redirect_uri=http://localhost:8080/auth/kakao/callback");
+        url.append("&redirect_uri=http://13.209.64.218:8080/auth/kakao/callback");
 
         return "redirect:" + url.toString();
     }

@@ -33,7 +33,7 @@ spring:
             client-name: Kakao
             client-secret: 7BbE7NqzuF4FbLfBODfkCzd31ENyQ7aF
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/auth/kakao/callback
+            redirect-uri: http://13.209.64.218:8080/auth/kakao/callback
             client-authentication-method: POST
         provider:
           kakao:
