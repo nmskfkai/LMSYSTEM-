@@ -41,7 +41,7 @@ public class KakaoController {
         //list 모델에 담아 view로 넘김
         model.addAttribute("list", list);
 
-        return "/member/userInfo";
+        return "member/userInfo";
     }
 
 }

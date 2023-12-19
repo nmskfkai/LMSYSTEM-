@@ -145,12 +145,13 @@ public class KakaoServiceImpl implements KakaoService{
 
 
         //DB 저장
-        KakaoUser kakaouser = new KakaoUser(ninkname,"1234",ninkname,email,gender,birthday);
-        kakaoRespository.save(kakaouser);
+//        KakaoUser kakaouser = new KakaoUser(ninkname,"1234",ninkname,email,gender,birthday);
+//        kakaoRespository.save(kakaouser);
         //DB 저장
         Member member = Member.builder()
-                .userId(ninkname) // 예시로 userId에 닉네임을 저장하도록 함
+                .userId(email) // 예시로 userId에 닉네임을 저장하도록 함
                 .userName(ninkname)
+                .phone("01011111111")
                 .password("1234") // 예시로 고정된 비밀번호를 저장하도록 함
                 .regDt(LocalDateTime.now())
                 .emailAuthYn(true)
