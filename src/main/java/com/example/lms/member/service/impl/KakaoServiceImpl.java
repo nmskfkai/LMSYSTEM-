@@ -1,14 +1,13 @@
 package com.example.lms.member.service.impl;
 
-import com.example.lms.member.entity.KakaoUser;
 import com.example.lms.member.entity.Member;
-import com.example.lms.member.repository.KakaoRespository;
 import com.example.lms.member.repository.MemberRepository;
 import com.example.lms.member.service.KakaoService;
 import com.nimbusds.jose.shaded.gson.JsonElement;
 import com.nimbusds.jose.shaded.gson.JsonObject;
 import com.nimbusds.jose.shaded.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -25,7 +24,6 @@ import java.util.ArrayList;
 public class KakaoServiceImpl implements KakaoService{
 
     @Autowired
-    KakaoRespository kakaoRespository;
     MemberRepository memberRepository;
     @Override
     public String getToken(String code) throws Exception {
@@ -143,6 +141,7 @@ public class KakaoServiceImpl implements KakaoService{
         list.add(email);
         list.add(birthday);
 
+        String encPassword = BCrypt.hashpw("1234", BCrypt.gensalt());
 
         //DB 저장
 //        KakaoUser kakaouser = new KakaoUser(ninkname,"1234",ninkname,email,gender,birthday);
@@ -152,7 +151,7 @@ public class KakaoServiceImpl implements KakaoService{
                 .userId(email) // 예시로 userId에 닉네임을 저장하도록 함
                 .userName(ninkname)
                 .phone("01011111111")
-                .password("1234") // 예시로 고정된 비밀번호를 저장하도록 함
+                .password(encPassword) // 예시로 고정된 비밀번호를 저장하도록 함
                 .regDt(LocalDateTime.now())
                 .emailAuthYn(true)
                 .userStatus(Member.MEMBER_STATUS_ING)
