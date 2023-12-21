@@ -162,9 +162,9 @@ public class CourseServiceImpl implements CourseService {
         return null;
     }
     
-    /**
-     * 수강신청
-     */
+
+    //  수강신청
+
     @Override
     public ServiceResult req(TakeCourseInput parameter) {
         

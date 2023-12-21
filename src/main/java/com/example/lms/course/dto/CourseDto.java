@@ -68,17 +68,7 @@ public class CourseDto {
         }
         return courseList;
         
-        /*
-        if (courses != null) {
-            List<CourseDto> courseList = new ArrayList<>();
-            for(Course x : courses) {
-                courseList.add(CourseDto.of(x));
-            }
-            return courseList;
-        }
-        return null;
-        */
-        
+
     }
     
 }

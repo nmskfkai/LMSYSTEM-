@@ -40,9 +40,9 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberMapper memberMapper;
 
-    /**
-     * 회원 가입
-     */
+
+    //  회원 가입
+
     @Override
     public boolean register(MemberInput parameter) {
 

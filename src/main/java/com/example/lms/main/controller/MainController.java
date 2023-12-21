@@ -22,12 +22,6 @@ public class MainController {
     @RequestMapping("/")
     public String index(){
 
-//        String email = "leejimin00@naver.com";
-//        String subject = "hi, jimin";
-//        String text = "<p> hi </p> <p> jimin </p>";
-
-//        mailComponents.sendMail(email, subject, text);
-//        mailComponents.sendMailTest();
 
         return "index";
     }

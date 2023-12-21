@@ -72,11 +72,7 @@ public class MemberController {
         return "member/register_complete";
     }
 
-    // http://www.naver.com/news/list.do?id=123&key=124&text=쿼리
-    // https://
-    // 프로토콜://도메인(IP)/news/list.do?쿼리스트링(파라미터)
-    // https://www.naver.com/cafe/detail.do?id=1111
-    // https://www.naver.com/cafe/detail.do?id=2222
+
 
 
     @GetMapping("/member/email-auth")

@@ -143,9 +143,7 @@ public class KakaoServiceImpl implements KakaoService{
 
         String encPassword = BCrypt.hashpw("1234", BCrypt.gensalt());
 
-        //DB 저장
-//        KakaoUser kakaouser = new KakaoUser(ninkname,"1234",ninkname,email,gender,birthday);
-//        kakaoRespository.save(kakaouser);
+
         //DB 저장
         Member member = Member.builder()
                 .userId(email) // 예시로 userId에 닉네임을 저장하도록 함

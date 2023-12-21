@@ -36,9 +36,7 @@ public class SecurityConfiguration {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .cors(AbstractHttpConfigurer::disable)
-//                .csrf(AbstractHttpConfigurer::disable);
+
 
         http.authorizeHttpRequests(request -> request
                 .requestMatchers("/",
@@ -55,12 +53,9 @@ public class SecurityConfiguration {
                 .hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()); // 나머지 API에 대해서는 인증을 요구
 
-//        http.authorizeHttpRequests(request -> request
-//                .requestMatchers("/admin/**")
-//                .hasAuthority("ROLE_ADMIN")
-//        );
 
-        //http.oauth2Login(Customizer.withDefaults());
+
+
         http
                 .formLogin()
                 .loginPage("/member/login")	// [A] 커스텀 로그인 페이지 지정
