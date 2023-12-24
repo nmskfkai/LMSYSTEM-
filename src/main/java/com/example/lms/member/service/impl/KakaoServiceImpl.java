@@ -46,7 +46,7 @@ public class KakaoServiceImpl implements KakaoService{
         sb.append("grant_type=authorization_code");
         sb.append("&client_id=37c93ea0bb15b3614a2375487d27eea1");
         sb.append("&client_secret=7BbE7NqzuF4FbLfBODfkCzd31ENyQ7aF");
-        sb.append("&redirect_uri=http://13.209.64.218:8080/auth/kakao/callback");
+        sb.append("&redirect_uri=http://lmsproject.ddns.net:8080/auth/kakao/callback");
         sb.append("&code=" + code);
         bw.write(sb.toString());
         bw.flush();
